@@ -21,16 +21,34 @@
         maxlength="140"
         required
       />
+      <div class="form-extras">
+        <input id="todo-date" type="date" aria-label="Due date" />
+        <select id="todo-priority" aria-label="Priority">
+          <option value="low">Low</option>
+          <option value="med" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
       <button type="submit">Add</button>
     </form>
 
-    <section class="controls" aria-label="Filters">
+    <section class="controls" aria-label="Filters and sort">
       <div class="filters" role="tablist">
         <button class="filter active" data-filter="all" type="button">All</button>
         <button class="filter" data-filter="active" type="button">Active</button>
         <button class="filter" data-filter="completed" type="button">Completed</button>
       </div>
-      <button id="clear-completed" type="button" class="link">Clear completed</button>
+      <div class="right-controls">
+        <label class="sort">
+          Sort:
+          <select id="sort-select" aria-label="Sort by">
+            <option value="manual">Manual</option>
+            <option value="date">Due date</option>
+            <option value="priority">Priority</option>
+          </select>
+        </label>
+        <button id="clear-completed" type="button" class="link">Clear completed</button>
+      </div>
     </section>
 
     <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
