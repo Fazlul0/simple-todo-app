@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Todo App</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Todos</h1>
+      <p class="subtitle">A minimal, dependency-free list.</p>
+    </header>
+
+    <form id="todo-form" class="todo-form" autocomplete="off">
+      <input
+        id="todo-input"
+        type="text"
+        placeholder="What needs to be done?"
+        maxlength="140"
+        required
+      />
+      <button type="submit">Add</button>
+    </form>
+
+    <section class="controls" aria-label="Filters">
+      <div class="filters" role="tablist">
+        <button class="filter active" data-filter="all" type="button">All</button>
+        <button class="filter" data-filter="active" type="button">Active</button>
+        <button class="filter" data-filter="completed" type="button">Completed</button>
+      </div>
+      <button id="clear-completed" type="button" class="link">Clear completed</button>
+    </section>
+
+    <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
+
+    <footer class="status">
+      <span id="counter">0 items</span>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
