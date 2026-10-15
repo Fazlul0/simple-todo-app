@@ -18,6 +18,7 @@
   const input = document.getElementById('todo-input');
   const dateInput = document.getElementById('todo-date');
   const priorityInput = document.getElementById('todo-priority');
+  const resetBtn = document.getElementById('reset-form');
   const list = document.getElementById('todo-list');
   const counter = document.getElementById('counter');
   const clearBtn = document.getElementById('clear-completed');
@@ -288,6 +289,13 @@
 
   sortSelect.addEventListener('change', e => setSort(e.target.value));
   clearBtn.addEventListener('click', clearCompleted);
+
+  resetBtn.addEventListener('click', () => {
+    input.value = '';
+    dateInput.value = '';
+    priorityInput.value = 'med';
+    input.focus();
+  });
 
   setFilter(filter);
   setSort(sortMode);
