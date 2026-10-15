@@ -127,11 +127,16 @@ header h1 {
 
 .todo-form button:hover {
   background: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 .todo-form button:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
+}
+
+.todo-form button:active {
+  transform: translateY(0);
 }
 
 .form-extras {
@@ -271,11 +276,29 @@ header h1 {
   padding: 10px 4px;
   border-bottom: 1px solid var(--border);
   border-radius: 6px;
-  transition: background var(--transition);
+  transition: background var(--transition), opacity 200ms ease, transform 200ms ease;
+  animation: item-in 220ms ease both;
 }
 
 .todo-item:hover {
   background: #fafbfc;
+}
+
+.todo-item.removing {
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+}
+
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .todo-item .checkbox {
@@ -285,6 +308,11 @@ header h1 {
   accent-color: var(--accent);
   flex-shrink: 0;
   margin: 4px;
+  transition: transform 120ms ease;
+}
+
+.todo-item .checkbox:active {
+  transform: scale(0.85);
 }
 
 .todo-item .checkbox:focus-visible {

@@ -244,9 +244,21 @@
   }
 
   function remove(id) {
-    todos = todos.filter(t => t.id !== id);
-    saveTodos();
-    render();
+    const li = list.querySelector(`[data-id="${id}"]`);
+    if (li) {
+      li.classList.add('removing');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const delay = reduceMotion ? 0 : 200;
+      setTimeout(() => {
+        todos = todos.filter(t => t.id !== id);
+        saveTodos();
+        render();
+      }, delay);
+    } else {
+      todos = todos.filter(t => t.id !== id);
+      saveTodos();
+      render();
+    }
   }
 
   function clearCompleted() {
