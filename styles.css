@@ -12,6 +12,9 @@
   --overdue: #ef4444;
   --soon: #f59e0b;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.06), 0 12px 32px rgba(0, 0, 0, 0.06);
+  --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  --transition: 0.15s ease;
 }
 
 * {
@@ -35,6 +38,28 @@ html, body {
   border-radius: 12px;
   padding: 24px;
   box-shadow: var(--shadow);
+  transition: box-shadow var(--transition), transform var(--transition);
+  animation: app-in 280ms ease both;
+}
+
+@keyframes app-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.2);
+  color: var(--text);
+}
+
+.app:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 header h1 {
@@ -80,11 +105,12 @@ header h1 {
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow var(--transition);
 }
 
 .todo-form input[type="text"]:focus {
   border-color: var(--accent);
+  box-shadow: var(--focus-ring);
 }
 
 .todo-form button {
@@ -96,11 +122,16 @@ header h1 {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background var(--transition), box-shadow var(--transition);
 }
 
 .todo-form button:hover {
   background: var(--accent-hover);
+}
+
+.todo-form button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 .form-extras {
@@ -118,11 +149,13 @@ header h1 {
   background: white;
   color: var(--text);
   outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .form-extras input[type="date"]:focus,
 .form-extras select:focus {
   border-color: var(--accent);
+  box-shadow: var(--focus-ring);
 }
 
 .form-extras select {
@@ -151,6 +184,7 @@ header h1 {
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: color var(--transition), background var(--transition), border-color var(--transition);
 }
 
 .filter:hover {
@@ -161,6 +195,12 @@ header h1 {
   border-color: var(--border);
   color: var(--text);
   background: #f9fafb;
+}
+
+.filter:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--focus-ring);
 }
 
 .right-controls {
@@ -186,10 +226,12 @@ header h1 {
   font-size: 0.85rem;
   cursor: pointer;
   outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .sort select:focus {
   border-color: var(--accent);
+  box-shadow: var(--focus-ring);
 }
 
 .link {
@@ -199,11 +241,19 @@ header h1 {
   cursor: pointer;
   font-size: 0.9rem;
   padding: 4px 6px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition);
 }
 
 .link:hover {
   color: var(--danger);
   text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline: none;
+  color: var(--text);
+  box-shadow: var(--focus-ring);
 }
 
 .todo-list {
@@ -220,6 +270,12 @@ header h1 {
   gap: 10px;
   padding: 10px 4px;
   border-bottom: 1px solid var(--border);
+  border-radius: 6px;
+  transition: background var(--transition);
+}
+
+.todo-item:hover {
+  background: #fafbfc;
 }
 
 .todo-item .checkbox {
@@ -228,6 +284,13 @@ header h1 {
   cursor: pointer;
   accent-color: var(--accent);
   flex-shrink: 0;
+  margin: 4px;
+}
+
+.todo-item .checkbox:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 4px;
 }
 
 .todo-item .body {
@@ -239,11 +302,13 @@ header h1 {
 
 .todo-item .text {
   word-break: break-word;
+  transition: color var(--transition);
 }
 
 .todo-item.completed .text {
   text-decoration: line-through;
   color: var(--completed);
+  text-decoration-thickness: 1.5px;
 }
 
 .todo-item .meta {
@@ -263,6 +328,11 @@ header h1 {
   background: #f3f4f6;
   border: 1px solid var(--border);
   white-space: nowrap;
+  transition: transform var(--transition);
+}
+
+.todo-item .badge:hover {
+  transform: scale(1.05);
 }
 
 .todo-item .badge.priority-low { color: #047857; border-color: #a7f3d0; background: #ecfdf5; }
@@ -283,11 +353,18 @@ header h1 {
   line-height: 1;
   padding: 4px 8px;
   border-radius: 6px;
+  transition: color var(--transition), background var(--transition);
 }
 
 .todo-item .delete:hover {
   color: var(--danger);
   background: #fef2f2;
+}
+
+.todo-item .delete:focus-visible {
+  outline: none;
+  color: var(--danger);
+  box-shadow: var(--focus-ring);
 }
 
 .empty {
@@ -297,9 +374,35 @@ header h1 {
   font-size: 0.95rem;
 }
 
+.empty::before {
+  content: "✦";
+  display: block;
+  font-size: 1.6rem;
+  color: var(--border);
+  margin-bottom: 6px;
+}
+
 .status {
   margin-top: 12px;
   font-size: 0.85rem;
   color: var(--muted);
   text-align: right;
+}
+
+#counter {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #f3f4f6;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
 }
