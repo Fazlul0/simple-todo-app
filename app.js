@@ -24,6 +24,7 @@
   const clearBtn = document.getElementById('clear-completed');
   const sortSelect = document.getElementById('sort-select');
   const filterButtons = document.querySelectorAll('.filter');
+  const totalBadge = document.getElementById('total-badge');
 
   // --- Persistence ------------------------------------------------------
   function loadTodos() {
@@ -128,6 +129,11 @@
 
     const remaining = todos.filter(t => !t.done).length;
     counter.textContent = `${remaining} ${remaining === 1 ? 'item' : 'items'} left`;
+
+    if (totalBadge) {
+      totalBadge.textContent = String(todos.length);
+      totalBadge.hidden = todos.length === 0;
+    }
   }
 
   function renderItem(todo) {
